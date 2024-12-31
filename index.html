@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meldkamer Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/5d56c42ad2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="topbar">
+        <div class="clock" id="clock"></div>
+        <div class="title">
+            <h1>Meldkamer</h1>
+            <h3>Midden-Nederland</h3>
+        </div>
+        <div class="profile-icon">
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="actieve-meldingen">
+            <h1>⚠️ Actieve meldingen</h1>
+            <div id="meldingen-container"></div> 
+        </div>
+        <div class="melding-maken">
+            <h1>⚠️ Melding maken</h1>
+            <button id="melding-aanmaken">Melding aanmaken</button>
+            <div class="melding">
+                <div class="soort-melding">
+                    <span>Melding: </span><span id="soort-melding-tekst"></span>
+                </div>
+                <div class="strepen">---------------------------------------------------------------------------------------------</div>
+                <div class="locatie-melding">
+                    <span>Locatie: </span><span id="locatie-tekst"></span>
+                </div>
+                <div class="strepen">---------------------------------------------------------------------------------------------</div>
+                <div class="prio-melding">
+                    <span>Prio: </span><span id="prio-tekst"></span>
+                </div>
+                <div class="strepen">---------------------------------------------------------------------------------------------</div>
+                <div class="incident-melding">
+                    <span>Incident: </span><span id="incident-tekst"></span>
+                </div>
+            </div>
+            <div class="melding-inputs">
+                <div class="input-row">
+                    <select class="prio-politie" id="prio-politie">
+                        <option disabled selected>Prio Politie</option>
+                        <option>Prio 1 met</option>
+                        <option>Prio 1 zonder</option>
+                        <option>Prio 2</option>
+                        <option>Prio 3</option>
+                    </select>
+                    <select class="prio-brandweer" id="prio-brandweer">
+                        <option disabled selected>Prio Brandweer</option>
+                        <option>Prio 1</option>
+                        <option>Prio 2</option>
+                        <option>Prio 3</option>
+                    </select>
+                    <select class="prio-ambulance" id="prio-ambulance">
+                        <option disabled selected>Prio Ambulance</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                    </select>
+                </div>
+                <div class="input-row">
+                    <select name="soort-melding" id="soort-melding">
+                        <option disabled selected>Soort melding</option>
+                        <option disabled>----Meldingen Politie----</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Berovoing</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Dier</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Fraude</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Goederen</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Heling</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Luchtvaartuig</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Oplichting</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Vaartuig</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Voertuig</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Winkeldiefstal</option>
+                        <option>Politie|01|Bezitsaantasting|Diefstal - Zakkenrollen</option>
+                        <option>Politie|01|Bezitsaantasting|Inbraak - Industrie</option>
+                        <option>Politie|01|Bezitsaantasting|Inbraak - Winkel</option>
+                        <option>Politie|01|Bezitsaantasting|Inbraak - Woning</option>
+                        <option>Politie|01|Bezitsaantasting|Inbraak - Voertuig</option>
+                        <option>Politie|01|Bezitsaantasting|Inbraak - Vaartuig</option>
+                        <option>Politie|01|Bezitsaantasting|Overval - Industrie</option>
+                        <option>Politie|01|Bezitsaantasting|Overval - Winkel</option>
+                        <option>Politie|01|Bezitsaantasting|Overval - Woning</option>
+                        <option>Politie|01|Bezitsaantasting|Overval - Waardetransport</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Gebouw</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Goederen</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Voertuig</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Vaartuig</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Graffiti</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Infratructuur</option>
+                        <option>Politie|01|Bezitsaantasting|Vernieling - Brandstischting</option>
+                        <option>Politie|02|Geweldsmisdrijven - Vechtpartij</option>
+                        <option>Politie|02|Geweldsmisdrijven - Mishandeling</option>
+                        <option>Politie|02|Geweldsmisdrijven - Zware mishandeling</option>
+                        <option>Politie|02|Geweldsmisdrijven - Bedreiging met geweld</option>
+                        <option>Politie|02|Geweldsmisdrijven - Huiselijk geweld</option>
+                        <option>Politie|02|Geweldsmisdrijven - Wapenbezit</option>
+                        <option>Politie|02|Geweldsmisdrijven - Gijzeling</option> 
+                        <option>Politie|02|Geweldsmisdrijven - Poging tot zelfdoding</option> 
+                        <option>Politie|02|Geweldsmisdrijven - Zelfdoding</option>                 
+                        <option>Politie|03|Verkeersincidenten|Verkeersongeval - Voertuig</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersongeval - Aanrijding letsel</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersongeval - Aanrijding zwaar letsel</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersongeval - Kettingbotsing</option>
+                        <option>Politie|03|Verkeersincidenten|Invloed - Dronken</option>
+                        <option>Politie|03|Verkeersincidenten|Invloed - Druks</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersdelicten - Doorrijden na ongeval</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersdelicten - Negeren verkeerslichten</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersdelicten - Illegale straatrace</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersdelicten - Hoge snelheden</option>
+                        <option>Politie|03|Verkeersincidenten|Verkeersdelicten - Rijden zonder kenteken</option>
+                        <option>Politie|04|Openbare orde|Geluid - Geluidsoverlast</option>
+                        <option>Politie|04|Openbare orde|Hinderlijk gedrag - Dronken</option>
+                        <option>Politie|04|Openbare orde|Hinderlijk gedrag - Vervuiling</option>
+                        <option>Politie|04|Openbare orde|Hinderlijk gedrag - verstoring openbaar vervoer</option>
+                        <option>Politie|04|Openbare orde|Hinderlijk gedrag - Overlast jongeren</option>
+                        <option>Politie|04|Openbare orde|Illegale bijeenkomst - Feest</option>
+                        <option>Politie|04|Openbare orde|Illegale bijeenkomst - Straatverkoop</option>
+                        <option>Politie|04|Openbare orde|Intimidatie - Persoon</option>
+                        <option>Politie|04|Openbare orde|Intimidatie - Afressief persoon</option>
+                        <option>Politie|05|Drugsincidenten - Druks handel</option>
+                        <option>Politie|05|Drugsincidenten - Druks bezit</option>
+                        <option>Politie|06|Terroristische dreiging - Plaatsen van explosieven</option>
+                        <option>Politie|06|Terroristische dreiging - Verdacht voertuig</option>
+                        <option>Politie|06|Terroristische dreiging - Ongewoon gedrag in openbaar gebouw</option>
+                        <option>Politie|06|Terroristische dreiging - Dreiging luchthaven</option>
+                        <option>Politie|06|Terroristische dreiging - Waarschuwing voor aanslag</option>
+                        <option>Politie|06|Terroristische dreiging - Aanslag</option>
+                        <option>Politie|07|Vermissing - Kind</option>
+                        <option>Politie|07|Vermissing - Persoon met gezondheidsproblemen</option>
+                        <option>Politie|07|Vermissing - Kwetsbaar persoon</option>
+                        <option>Politie|07|Vermissing - Oudere persoon</option>
+                        <option>Politie|08|Assitentie - Brandweer</option>
+                        <option>Politie|08|Assitentie - Ambulance</option>
+                        <option>Politie|08|Assitentie - Beveiliging</option>
+                        <option disabled>----Meldingen Brandweer----</option>
+                        <option disabled>----Meldingen Ambulance----</option>
+                    </select>
+                    <select class="incident-kanaal" id="incident-kanaal">
+                        <option disabled selected>Incident kanaal</option>
+                        <option>Incident kanaal 1&2</option>
+                        <option>Incident kanaal 3&4</option>
+                        <option>Incident kanaal 5&6</option>
+                        <option>Incident kanaal 7&8</option>
+                        <option>Incident kanaal 9&10</option>
+                        <option>Incident kanaal 11&12</option>
+                    </select>
+                    <input type="text" id="locatie" placeholder="Locatie">
+                </div>
+            </div>        
+            <div class="melding-info">
+                <textarea id="melding-tekst">
+INTK112
+Dienst:
+Tijd:
+Melder:
+----------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+----------------------------------------------------------------------------------------------------------------------------------------
+Signalement:
+    
+----------------------------------------------------------------------------------------------------------------------------------------
+Eenheden:
+    
+----------------------------------------------------------------------------------------------------------------------------------------
+Inzet update:</textarea>
+            </div>
+        </div>
+        <div class="beschikbare-eenheden">
+            <h1>Beschikbare eenheden</h1>
+        </div>
+        <div class="spraak-aanvragen">
+            <h1>📞 Spraakaanvragen</h1>
+        </div>
+    </div>      
+</body>
+</html>
+
