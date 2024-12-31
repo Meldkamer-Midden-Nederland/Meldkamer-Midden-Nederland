@@ -127,7 +127,7 @@ body {
     border: 2px solid var(--topbar-bg-color);
     border-radius: 5px;
     height: 30px; /* Verklein de hoogte van de tekstinput */
-    margin-top: 35px;
+    margin-top: 20px;
     font-size: 14px; /* Verklein de tekstgrootte in de input */
     padding: 5px; /* Verminder padding voor de input */
     border: 1px solid #ccc;
