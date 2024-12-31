@@ -118,14 +118,18 @@ incidentKanaal.addEventListener('change', function() {
 
 /*Functie van een melding aanmaken*/
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const meldingAanmakenKnop = document.getElementById('melding-aanmaken');
     const meldingenContainer = document.getElementById('meldingen-container');
     const meldingTextarea = document.getElementById('melding-tekst');
     const soortMelding = document.getElementById('soort-melding');
     const incidentKanaal = document.getElementById('incident-kanaal');
 
-    // Elementen binnen de melding-div
+    const prioPolitie = document.getElementById('prio-politie');
+    const prioBrandweer = document.getElementById('prio-brandweer');
+    const prioAmbulance = document.getElementById('prio-ambulance');
+    const locatieInput = document.getElementById('locatie');
+
     const soortMeldingTekst = document.getElementById('soort-melding-tekst');
     const locatieTekst = document.getElementById('locatie-tekst');
     const prioTekst = document.getElementById('prio-tekst');
@@ -135,21 +139,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const politiePrio = prioPolitie.value;
         const brandweerPrio = prioBrandweer.value;
         const ambulancePrio = prioAmbulance.value;
-        const locatie = locatieInput.value;
+        const locatie = locatieInput.value.trim();
         const soortMeldingInfo = soortMelding.value;
-        const meldingTekst = meldingTextarea.value;
+        const meldingTekst = meldingTextarea.value.trim();
         const incidentKanaalInfo = incidentKanaal.value;
 
         if (
-            (prioPolitie === 'Prio Politie' || prioPolitie.trim() === '') &&
-            (prioBrandweer === 'Prio Brandweer' || prioBrandweer.trim() === '') &&
-            (prioAmbulance === 'Prio Ambulance' || prioAmbulance.trim() === '') &&
-            locatie.trim() === '' &&
-            meldingTekst.trim() === ''
+            politiePrio === 'Prio Politie' &&
+            brandweerPrio === 'Prio Brandweer' &&
+            ambulancePrio === 'Prio Ambulance' &&
+            locatie === '' &&
+            meldingTekst === ''
         ) {
             alert('Vul alle velden in om een melding aan te maken!');
             return;
-        }             
+        }
 
         const nieuweMelding = document.createElement('div');
         nieuweMelding.classList.add('melding-item');
@@ -174,23 +178,20 @@ document.addEventListener('DOMContentLoaded', function() {
         prioPolitie.value = 'Prio Politie';
         prioBrandweer.value = 'Prio Brandweer';
         prioAmbulance.value = 'Prio Ambulance';
-        prioTekst.value = '';
+        locatieInput.value = '';
         soortMelding.value = 'Soort melding';
         meldingTextarea.value = 'INTK112\nDienst:\nTijd:\nMelder:\n----------------------------------------------------------------------------------------------------------------------------------------\n\n\n----------------------------------------------------------------------------------------------------------------------------------------\nSignalement:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nEenheden:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nInzet update:';
 
-        // Reset de inhoud in de melding-div
         soortMeldingTekst.textContent = '';
         locatieTekst.textContent = '';
         prioTekst.textContent = '';
         incidentTekst.textContent = '';
-
         // Voeg event listener toe aan de delete button
         const deleteBtn = nieuweMelding.querySelector('.delete-btn');
-        deleteBtn.addEventListener('click', function() {
-            nieuweMelding.remove(); // Verwijdert de div
+        deleteBtn.addEventListener('click', function () {
+            nieuweMelding.remove();
         });
     });
 });
-
 
 
