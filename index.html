@@ -141,6 +141,32 @@
                         <option>Politie|08|Assitentie - Ambulance</option>
                         <option>Politie|08|Assitentie - Beveiliging</option>
                         <option disabled>----Meldingen Brandweer----</option>
+                        <option>Brandweer|01|Brand|Buiten - Afval</option>
+                        <option>Brandweer|01|Brand|Buiten - Berm</option>
+                        <option>Brandweer|01|Brand|Buiten - Bos</option>\
+                        <option>Brandweer|01|Brand|Buiten - Heide</option>
+                        <option>Brandweer|01|Brand|Buiten - Natuurgebied</option>
+                        <option>Brandweer|01|Brand|Buiten - Container</option>
+                        <option>Brandweer|01|Brand|Buiten - Industrie</option>
+                        <option>Brandweer|01|Brand - Bijgebouw</option>
+                        <option>Brandweer|01|Brand|Gebouw - Woning/Woongebouw</option>
+                        <option>Brandweer|01|Brand|Gebouw - Kantoor</option>
+                        <option>Brandweer|01|Brand|Gebouw - Winkel</option>
+                        <option>Brandweer|01|Brand|Gebouw - School</option>
+                        <option>Brandweer|01|Brand|Gebouw - Ziekenhuis</option>
+                        <option>Brandweer|01|Brand|Gebouw - Vliegveld</option> 
+                        <option>Brandweer|01|Brand|Gebouw - Garage</option>
+                        <option>Brandweer|01|Brand|Gebouw - Industrie</option>
+                        <option>Brandweer|01|Brand|Voertuig - Personenauto</option>
+                        <option>Brandweer|01|Brand|Voertuig - Vrachtwagen</option>
+                        <option>Brandweer|01|Brand|Voertuig - Elektrische fiets</option> 
+                        <option>Brandweer|01|Brand|Voertuig - Trein</option>
+                        <option>Brandweer|01|Brand|Voertuig - Bus</option>
+                        <option>Brandweer|01|Brand - Boot</option> 
+                        <option>Brandweer|01|Brand - Vliegtuig</option>         
+                        <option>Brandweer|02|Hulpverlening|Ongeval - Beknelling</option>   
+                        <option>Brandweer|02|Hulpverlening - Liftopsluiting</option>  
+                        <option>Brandweer|02|Hulpverlening - Persoon te water</option>           
                         <option disabled>----Meldingen Ambulance----</option>
                     </select>
                     <select class="incident-kanaal" id="incident-kanaal">
@@ -174,6 +200,21 @@ Eenheden:
 Inzet update:</textarea>
             </div>
         </div>
+        <div class="telefoon-geluiden">
+            <h1>📟 Pieper</h1>
+            <div class="telefoon-container">
+                <select id="select-opties">
+                    <option value="" disabled selected>Soort geluid</option>
+                    <option value="112">112 Telefoontje</option>
+                    <option value="spraak-urgent">Spraakaanvraag urgent</option>
+                    <option value="spraak">Spraakaanvraag</option>
+                </select>                
+                <div class="test-uit">
+                    <button class="button" id="test">Test</button>
+                    <button class="button" id="geluid-uit">Geluid uit</button>
+                </div>
+            </div>
+        </div>        
         <div class="beschikbare-eenheden">
             <h1>Beschikbare eenheden</h1>
         </div>
