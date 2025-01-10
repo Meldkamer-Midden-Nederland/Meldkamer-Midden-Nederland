@@ -221,32 +221,32 @@ Inzet update:</textarea>
         <div class="spraak-aanvragen">
             <h1>📞 Spraakaanvragen</h1>
 
-                <script>
-        const ws = new WebSocket("ws://localhost:8765");
+            <script>
+                const ws = new WebSocket("ws://localhost:8765");
 
-        ws.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            if (data.event === "new_request") {
-                addRequestButton(data);
-            }
-        };
+                ws.onmessage = function(event) {
+                    const data = JSON.parse(event.data);
+                    if (data.event === "new_request") {
+                        addRequestButton(data);
+                    }
+                };
 
-        function addRequestButton(data) {
-            const container = document.querySelector('.spraak-aanvragen');
-            const button = document.createElement('button');
-            button.textContent = `Doorverbinden met ${data.name}`;
-            button.onclick = () => {
-                // Stuur signaal naar de WebSocket-server
-                ws.send(JSON.stringify({
-                    action: "connect_user",
-                    user_id: data.user_id,
-                    channel: data.channel
-                }));
-                button.remove(); // Verwijder knop na actie
-            };
-            container.appendChild(button);
-        }
-    </script>
+                function addRequestButton(data) {
+                    const container = document.querySelector('.spraak-aanvragen');
+                    const button = document.createElement('button');
+                    button.textContent = `Doorverbinden met ${data.name}`;
+                    button.onclick = () => {
+                        // Stuur signaal naar de WebSocket-server
+                        ws.send(JSON.stringify({
+                            action: "connect_user",
+                            user_id: data.user_id,
+                            channel: data.channel
+                        }));
+                        button.remove(); // Verwijder knop na actie
+                    };
+                    container.appendChild(button);
+                }
+            </script>
         </div>
     </div>      
 </body>
