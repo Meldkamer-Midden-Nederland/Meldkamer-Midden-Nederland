@@ -135,15 +135,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const prioTekst = document.getElementById('prio-tekst');
     const incidentTekst = document.getElementById('incident-tekst');
 
+    // Voeg de opslaan-knop toe aan de DOM
+    let opslaanKnop = document.createElement('button');
+    opslaanKnop.id = 'opslaan-knop';
+    opslaanKnop.textContent = 'Opslaan';
+    opslaanKnop.style.display = 'none'; // Verberg de knop standaard
+    document.querySelector('.melding-maken').appendChild(opslaanKnop);
+
+    // We houden per melding een object bij
+    let meldingenData = [];
+
+    // Eventlistener voor "Melding Aanmaken"-knop
     meldingAanmakenKnop.addEventListener('click', function () {
         const politiePrio = prioPolitie.value;
         const brandweerPrio = prioBrandweer.value;
         const ambulancePrio = prioAmbulance.value;
-        const locatie = locatieInput.value.trim();
+        const locatie = locatieTekst.textContent.trim();  // Haal de locatie uit textContent
         const soortMeldingInfo = soortMelding.value;
         const meldingTekst = meldingTextarea.value.trim();
         const incidentKanaalInfo = incidentKanaal.value;
 
+        // Controleer of velden correct zijn ingevuld
         if (
             politiePrio === 'Prio Politie' &&
             brandweerPrio === 'Prio Brandweer' &&
@@ -174,24 +186,139 @@ document.addEventListener('DOMContentLoaded', function () {
 
         meldingenContainer.appendChild(nieuweMelding);
 
-        // Reset de inputs in het formulier
+        // Voeg de gegevens toe aan meldingenData
+        const meldingId = meldingenData.length;  // Unieke ID voor deze melding
+        meldingenData.push({
+            id: meldingId,
+            politiePrio,
+            brandweerPrio,
+            ambulancePrio,
+            locatie,
+            soortMelding: soortMeldingInfo,
+            meldingTekst,
+            incidentKanaal: incidentKanaalInfo
+        });
+
+        // Reset velden na toevoegen van een melding
         prioPolitie.value = 'Prio Politie';
         prioBrandweer.value = 'Prio Brandweer';
         prioAmbulance.value = 'Prio Ambulance';
         locatieInput.value = '';
         soortMelding.value = 'Soort melding';
-        meldingTextarea.value = 'INTK112\nDienst:\nTijd:\nMelder:\n----------------------------------------------------------------------------------------------------------------------------------------\n\n\n----------------------------------------------------------------------------------------------------------------------------------------\nSignalement:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nEenheden:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nInzet update:';
+        meldingTextarea.value = 'INTK112\nDienst:\nTijd:\nMelder:\n----------------------------------------------------------------------------------------------------------------------------------------\n\n\n----------------------------------------------------------------------------------------------------------------------------------------\nSignalement:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nEenheden:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nInzet update:'; 
 
         soortMeldingTekst.textContent = '';
         locatieTekst.textContent = '';
         prioTekst.textContent = '';
         incidentTekst.textContent = '';
-        // Voeg event listener toe aan de delete button
+
+        // Voeg eventlisteners toe voor nieuwe knoppen
         const deleteBtn = nieuweMelding.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', function () {
             nieuweMelding.remove();
+            // Verwijder ook de gegevens uit meldingenData
+            meldingenData = meldingenData.filter(melding => melding.id !== meldingId);
+        });
+
+        const selecteerbtn = nieuweMelding.querySelector('.selecteren-btn');
+        selecteerbtn.addEventListener('click', function () {
+            // Zoek de gegevens van deze specifieke melding
+            const melding = meldingenData.find(m => m.id === meldingId);
+
+            // Haal de gegevens op uit de geselecteerde melding
+            soortMeldingTekst.textContent = melding.soortMelding;
+            locatieTekst.textContent = melding.locatie; // Locatie tonen in tekstweergave
+            incidentTekst.textContent = melding.incidentKanaal;
+
+            // Voeg alleen prio's toe als deze afwijken van de standaardwaarden
+            const prioArray = [];
+            if (melding.politiePrio && melding.politiePrio !== 'Prio Politie') {
+                prioArray.push(`Politie: ${melding.politiePrio}`);
+            }
+            if (melding.brandweerPrio && melding.brandweerPrio !== 'Prio Brandweer') {
+                prioArray.push(`Brandweer: ${melding.brandweerPrio}`);
+            }
+            if (melding.ambulancePrio && melding.ambulancePrio !== 'Prio Ambulance') {
+                prioArray.push(`Ambulance: ${melding.ambulancePrio}`);
+            }
+
+            if (prioArray.length > 0) {
+                prioTekst.textContent = prioArray.join(', ');
+            } else {
+                prioTekst.textContent = '';
+            }
+
+            meldingTextarea.value = melding.meldingTekst;
+
+            // Maak de opslaan-knop zichtbaar
+            opslaanKnop.style.display = 'inline-block';
+
+            // Bij opslaan de gegevens van deze melding bijwerken
+            opslaanKnop.onclick = function () {
+                // Werk de gegevens voor deze melding bij
+                melding.politiePrio = prioPolitie.value;
+                melding.brandweerPrio = prioBrandweer.value;
+                melding.ambulancePrio = prioAmbulance.value;
+                melding.locatie = locatieTekst.textContent.trim();  // Locatie komt uit textContent
+                melding.soortMelding = soortMeldingTekst.textContent;
+                melding.meldingTekst = meldingTextarea.value;
+                melding.incidentKanaal = incidentTekst.textContent;
+
+                console.log('Opgeslagen waarden voor deze melding:');
+                console.log(melding);
+
+                alert('Melding succesvol opnieuw opgeslagen!');
+
+                // Reset de velden en verberg de opslaan-knop
+                meldingTextarea.value = 'INTK112\nDienst:\nTijd:\nMelder:\n----------------------------------------------------------------------------------------------------------------------------------------\n\n\n----------------------------------------------------------------------------------------------------------------------------------------\nSignalement:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nEenheden:\n\n----------------------------------------------------------------------------------------------------------------------------------------\nInzet update:'; 
+
+                soortMeldingTekst.textContent = '';
+                locatieTekst.textContent = '';
+                prioTekst.textContent = '';
+                incidentTekst.textContent = '';
+
+                // Verberg de opslaan-knop na opslaan
+                opslaanKnop.style.display = 'none';
+            };
         });
     });
 });
 
+
+
+/* Pieper geluiden */
+
+const geluiden = {
+    "112": "./112.mp3",
+    "spraak-urgent": "./spraakaanvraag-urgent.mp3",
+    "spraak": "./Spraakaanvraag.mp3"
+};
+
+let huidigeAudio = null;
+
+document.getElementById("test").addEventListener("click", function () {
+    const geselecteerdGeluid = document.getElementById("select-opties").value;
+
+    if (geselecteerdGeluid && geluiden[geselecteerdGeluid]) {
+        if (huidigeAudio) {
+            huidigeAudio.pause();
+            huidigeAudio.currentTime = 0;
+        }
+
+        huidigeAudio = new Audio(geluiden[geselecteerdGeluid]);
+        huidigeAudio.loop = true; 
+        huidigeAudio.playbackRate = 1.5;
+        huidigeAudio.play();
+    } else {
+        alert("Selecteer eerst een geluid.");
+    }
+});
+
+
+document.getElementById("geluid-uit").addEventListener("click", function () {
+    if (huidigeAudio) {
+        huidigeAudio.pause();
+        huidigeAudio.currentTime = 0;
+    }
+});
 
